@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:rowCount="4"
+        android:columnCount="1">
+        <GridLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:rowCount="1"
+            android:columnCount="2"
+            android:layout_margin="16dp"
+            >
+            <ImageButton
+                android:id="@+id/btnTitle"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="#00FFFFFF"
+                android:layout_row="0"
+                android:layout_column="0"
+                android:src="@drawable/previous_icon"
+                android:scaleType="fitCenter"/>
+        </GridLayout>
+        <GridLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/gridLayout"
+            android:layout_width="match_parent"
+            android:rowCount="9"
+            android:columnCount="9"
+            android:layout_row="1"
+            android:layout_column="0"
+            android:layout_margin="16dp">
+        </GridLayout>
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_row="2"
+            android:layout_column="0"
+            android:rowCount="2"
+            android:columnCount="9"
+            android:layout_margin="16dp">
+
+            <!-- 상단에 있는 버튼 -->
+
+            <ImageButton
+                android:id="@+id/btnErase"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_row="0"
+                android:layout_column="1"
+                android:layout_columnSpan="0"
+                android:background="#00FFFFFF"
+                android:scaleType="fitCenter"
+                android:src="@drawable/eraser_icon" />
+
+<!--            <ImageButton-->
+<!--                android:id="@+id/btnMemo"-->
+<!--                android:layout_width="50dp"-->
+<!--                android:layout_height="50dp"-->
+<!--                android:background="#00FFFFFF"-->
+<!--                android:layout_row="0"-->
+<!--                android:layout_column="4"-->
+<!--                android:layout_columnSpan="0"-->
+<!--                android:src="@drawable/memo_off"-->
+<!--                android:scaleType="fitCenter"/>-->
+
+            <!-- 하단에 있는 숫자 버튼들 -->
+            <ImageButton
+                android:id="@+id/btnHint"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_row="0"
+                android:layout_column="7"
+                android:layout_columnSpan="0"
+                android:background="#00FFFFFF"
+                android:scaleType="fitCenter"
+                android:src="@drawable/hint_icon" />
+
+            <android.widget.Button
+                android:id="@+id/btn1"
+                android:layout_row="1"
+                android:layout_column="0"
+                android:background="#00FFFFFF"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_columnWeight="1"
+                android:textColor="@color/black"
+                android:textSize="40sp"
+                android:text="1"/>
+
+            <android.widget.Button
+                android:id="@+id/btn2"
+                android:layout_row="1"
+                android:layout_column="1"
+                android:background="#00FFFFFF"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_columnWeight="1"
+                android:textColor="@color/black"
+                android:textSize="40sp"
+                android:text="2"/>
+
+            <android.widget.Button
+                android:id="@+id/btn3"
+                android:layout_row="1"
+                android:layout_column="2"
+                android:background="#00FFFFFF"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_columnWeight="1"
+                android:textColor="@color/black"
+                android:textSize="40sp"
+                android:text="3"/>
+
+            <android.widget.Button
+                android:id="@+id/btn4"
+                android:layout_row="1"
+                android:layout_column="3"
+                android:background="#00FFFFFF"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_columnWeight="1"
+                android:textColor="@color/black"
+                android:textSize="40sp"
+                android:text="4"/>
+
+            <android.widget.Button
+                android:id="@+id/btn5"
+                android:layout_row="1"
+                android:layout_column="4"
+                android:background="#00FFFFFF"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_columnWeight="1"
+                android:textColor="@color/black"
+                android:textSize="40sp"
+                android:text="5"/>
+
+            <android.widget.Button
+                android:id="@+id/btn6"
+                android:layout_row="1"
+                android:layout_column="5"
+                android:background="#00FFFFFF"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_columnWeight="1"
+                android:textColor="@color/black"
+                android:textSize="40sp"
+                android:text="6"/>
+
+            <android.widget.Button
+                android:id="@+id/btn7"
+                android:layout_row="1"
+                android:layout_column="6"
+                android:background="#00FFFFFF"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_columnWeight="1"
+                android:textColor="@color/black"
+                android:textSize="40sp"
+                android:text="7"/>
+
+            <android.widget.Button
+                android:id="@+id/btn8"
+                android:layout_row="1"
+                android:layout_column="7"
+                android:background="#00FFFFFF"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_columnWeight="1"
+                android:textColor="@color/black"
+                android:textSize="40sp"
+                android:text="8"/>
+
+            <android.widget.Button
+                android:id="@+id/btn9"
+                android:layout_row="1"
+                android:layout_column="8"
+                android:background="#00FFFFFF"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_columnWeight="1"
+                android:textColor="@color/black"
+                android:textSize="40sp"
+                android:text="9"/>
+        </GridLayout>
+        <com.google.android.gms.ads.AdView
+            xmlns:ads="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/adView"
+            android:layout_row="3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"
+            android:layout_gravity="center_horizontal|bottom"
+            ads:adSize="BANNER"
+            ads:adUnitId="ca-app-pub-5730535650243784/3300914743">
+        </com.google.android.gms.ads.AdView>
+    </GridLayout>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

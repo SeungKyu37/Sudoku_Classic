@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="difficulty">
+        <item>쉬움</item>
+        <item>보통</item>
+        <item>어려움</item>
+        <item>전문가</item>
+    </array>
+</resources>

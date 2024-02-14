@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <android.widget.Button
+        android:id="@+id/btn_easy"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button_difficulty"
+        android:text="쉬움" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_weight="0.8"
+        android:background="@android:color/darker_gray" />
+
+    <android.widget.Button
+        android:id="@+id/btn_medium"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button_difficulty"
+        android:text="보통" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_weight="0.8"
+        android:background="@android:color/darker_gray" />
+
+    <android.widget.Button
+        android:id="@+id/btn_hard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button_difficulty"
+        android:text="어려움" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_weight="0.8"
+        android:background="@android:color/darker_gray" />
+
+    <android.widget.Button
+        android:id="@+id/btn_expert"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button_difficulty"
+        android:text="전문가" />
+
+</LinearLayout>
