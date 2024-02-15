@@ -83,7 +83,7 @@
                 android:layout_columnSpan="0"
                 android:background="#00FFFFFF"
                 android:scaleType="fitCenter"
-                android:src="@drawable/hint_icon" />
+                android:src="@drawable/hint_icon_1" />
 
             <android.widget.Button
                 android:id="@+id/btn1"

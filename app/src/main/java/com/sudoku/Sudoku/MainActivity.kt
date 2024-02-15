@@ -15,8 +15,15 @@ import android.widget.FrameLayout
 import android.widget.GridLayout
 import android.widget.ImageButton
 import android.widget.TextView
+import com.google.android.gms.ads.AdError
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdView
+import com.google.android.gms.ads.FullScreenContentCallback
+import com.google.android.gms.ads.LoadAdError
+import com.google.android.gms.ads.OnUserEarnedRewardListener
+import com.google.android.gms.ads.rewarded.RewardItem
+import com.google.android.gms.ads.rewarded.RewardedAd
+import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback
 import kotlin.random.Random
 
 class MainActivity : AppCompatActivity() {
@@ -41,6 +48,8 @@ class MainActivity : AppCompatActivity() {
 
 
 //        displayGrid()
+
+        loadRewardedAd()
         updateGrid()
 
 //        setMemoImage()
@@ -71,6 +80,11 @@ class MainActivity : AppCompatActivity() {
 
     var erasable: Boolean = true
 
+    var hintable: Boolean = true
+
+    private var rewardedAd: RewardedAd? = null
+
+
 
     private fun displayGrid() {
         val adView: AdView = findViewById(R.id.adView)
@@ -88,6 +102,42 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+    }
+
+    private fun loadRewardedAd() {
+        val adRequest = AdRequest.Builder().build()
+
+        RewardedAd.load(this,"ca-app-pub-5730535650243784/9088876125", adRequest, object : RewardedAdLoadCallback() {
+            override fun onAdFailedToLoad(adError: LoadAdError) {
+
+                rewardedAd = null
+            }
+
+            override fun onAdLoaded(ad: RewardedAd) {
+
+                rewardedAd = ad
+            }
+        })
+    }
+
+    private fun showRewardedAd(btnHint: ImageButton) {
+        rewardedAd?.fullScreenContentCallback = object: FullScreenContentCallback() {
+            override fun onAdDismissedFullScreenContent() {
+                rewardedAd = null
+                loadRewardedAd()
+            }
+
+            override fun onAdShowedFullScreenContent() {
+                rewardedAd = null
+            }
+        }
+        rewardedAd?.let { ad ->
+            ad.show(this, OnUserEarnedRewardListener { rewardItem ->
+                hintable = true
+                btnHint.setImageResource(R.drawable.hint_icon_1)
+            })
+        } ?: run {
+        }
     }
 
 
@@ -114,6 +164,8 @@ class MainActivity : AppCompatActivity() {
         val buttons = listOf(btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8, btn9)
 
         val btnErase: ImageButton = findViewById(R.id.btnErase)
+
+        val btnHint: ImageButton = findViewById(R.id.btnHint)
 
         for (i in 0 until 9) {
             layout_side += 110
@@ -215,6 +267,20 @@ class MainActivity : AppCompatActivity() {
                                 riddleGrid[i][j] = 0
                                 setColor(i,j)
                                 updateGrid()
+                            }
+                        }
+
+                        btnHint.setOnClickListener {
+                            if(hintable){
+                                if(riddleGrid[i][j] == 0) {
+                                    hintable = false
+                                    riddleGrid[i][j] = solvedgrid[i][j]
+                                    setColor(i,j)
+                                    updateGrid()
+                                    btnHint.setImageResource(R.drawable.hint_icon_ad)
+                                }
+                            } else {
+                                showRewardedAd(btnHint)
                             }
                         }
 
