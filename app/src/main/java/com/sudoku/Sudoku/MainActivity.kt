@@ -4,6 +4,7 @@ import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.content.pm.ActivityInfo
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -24,11 +25,13 @@ import com.google.android.gms.ads.OnUserEarnedRewardListener
 import com.google.android.gms.ads.rewarded.RewardItem
 import com.google.android.gms.ads.rewarded.RewardedAd
 import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback
+import com.google.gson.Gson
 import kotlin.random.Random
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
 
         difficulty = intent.getIntExtra("difficulty", 0)
         if(difficulty != 0){
@@ -41,6 +44,8 @@ class MainActivity : AppCompatActivity() {
             savedGrid = riddleGrid
             cntAnswer = intent.getIntExtra("loadedCntAnswer", 0)
             difficulty = intent.getIntExtra("loadedDifficulty", 0)
+            val loadedRedTextColorCellsArray = intent.getSerializableExtra("loadedRedTextColorCells") as Array<Pair<Int, Int>>?
+            redTextColorCells = loadedRedTextColorCellsArray?.toMutableSet() ?: mutableSetOf()
         }
 
 
@@ -61,7 +66,7 @@ class MainActivity : AppCompatActivity() {
 
 
         btn_Title.setOnClickListener{
-            saveData(solvedgrid, savedGrid, cntAnswer, difficulty)
+            saveData(solvedgrid, savedGrid, cntAnswer, difficulty, redTextColorCells)
             val intent = Intent(this,TitleActivity::class.java)
             startActivity(intent)
         }
@@ -76,7 +81,7 @@ class MainActivity : AppCompatActivity() {
 
     var difficulty = 0
     var cntAnswer = 0
-    val redTextColorCells: MutableSet<Pair<Int, Int>> = mutableSetOf()
+    var redTextColorCells: MutableSet<Pair<Int, Int>> = mutableSetOf()
 
     var erasable: Boolean = true
 
@@ -272,10 +277,14 @@ class MainActivity : AppCompatActivity() {
 
                         btnHint.setOnClickListener {
                             if(hintable){
-                                if(riddleGrid[i][j] == 0) {
+                                if(riddleGrid[i][j] != solvedgrid[i][j]) {
                                     hintable = false
                                     riddleGrid[i][j] = solvedgrid[i][j]
                                     setColor(i,j)
+                                    savedGrid[i][j] = riddleGrid[i][j]
+                                    redTextColorCells.remove(Pair(i, j))
+                                    erasable = false
+                                    cntAnswer++
                                     updateGrid()
                                     btnHint.setImageResource(R.drawable.hint_icon_ad)
                                 }
@@ -552,7 +561,7 @@ class MainActivity : AppCompatActivity() {
 
 
 
-    fun saveData(solvedgrid: Array<IntArray>, savedGrid: Array<IntArray>, cntAnswer: Int, difficulty: Int) {
+    fun saveData(solvedgrid: Array<IntArray>, savedGrid: Array<IntArray>, cntAnswer: Int, difficulty: Int, redTextColorCells: MutableSet<Pair<Int, Int>>) {
         val sharedPreferences: SharedPreferences = getSharedPreferences("sudoku", Context.MODE_PRIVATE)
         val editor: SharedPreferences.Editor = sharedPreferences.edit()
 
@@ -565,11 +574,17 @@ class MainActivity : AppCompatActivity() {
                 editor.putInt("savedGrid_$i$j", savedGrid[i][j])
             }
         }
+
+        // redTextColorCells를 JSON으로 변환하여 저장
+        val gson = Gson()
+        val json = gson.toJson(redTextColorCells)
+        editor.putString("redTextColorCells", json)
+
         editor.apply()
     }
 
     override fun onDestroy() {
-        saveData(solvedgrid, savedGrid, cntAnswer, difficulty)
+        saveData(solvedgrid, savedGrid, cntAnswer, difficulty, redTextColorCells)
 
         super.onDestroy()
     }

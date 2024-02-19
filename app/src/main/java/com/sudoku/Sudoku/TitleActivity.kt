@@ -4,6 +4,7 @@ import android.animation.ObjectAnimator
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.content.pm.ActivityInfo
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -12,11 +13,13 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import androidx.appcompat.app.AlertDialog
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 
 class TitleActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         setContentView(R.layout.activity_title)
 
         val myImageView = findViewById<ImageView>(R.id.myImageView)
@@ -27,6 +30,7 @@ class TitleActivity : AppCompatActivity() {
         val loadedSavedGrid: Array<IntArray> = sudokuData.loadedSavedGrid
         val loadedCntAnswer: Int = sudokuData.loadedCntAnswer
         val loadedDifficulty: Int = sudokuData.loadedDifficulty
+        val loadedRedTextColorCells: MutableSet<Pair<Int, Int>> = sudokuData.loadedRedTextColorCells
 
         // ObjectAnimator를 사용하여 이미지뷰 크기 애니메이션 설정
         val scaleXAnimator = ObjectAnimator.ofFloat(myImageView, "scaleX", 1f, 1.5f, 1f)
@@ -73,6 +77,7 @@ class TitleActivity : AppCompatActivity() {
             intent.putExtra("loadedSavedGrid", loadedSavedGrid)
             intent.putExtra("loadedCntAnswer", loadedCntAnswer)
             intent.putExtra("loadedDifficulty", loadedDifficulty)
+            intent.putExtra("loadedRedTextColorCells", loadedRedTextColorCells.toList().toTypedArray())
             startActivity(intent)
         }
 
@@ -158,6 +163,7 @@ class TitleActivity : AppCompatActivity() {
         val loadedDifficulty = sharedPreferences.getInt("difficulty", 0)
         val loadedSolvedGrid = Array(9) { IntArray(9) }
         val loadedSavedGrid = Array(9) { IntArray(9) }
+        val json = sharedPreferences.getString("redTextColorCells", null)
 
         for (i in 0 until 9) {
             for (j in 0 until 9) {
@@ -166,13 +172,19 @@ class TitleActivity : AppCompatActivity() {
             }
         }
 
-        return SudokuData(loadedSolvedGrid, loadedSavedGrid, loadedCntAnswer, loadedDifficulty)
+        // JSON 문자열을 다시 MutableSet<Pair<Int, Int>> 형태로 변환
+        val gson = Gson()
+        val itemType = object : TypeToken<MutableSet<Pair<Int, Int>>>() {}.type
+        val loadedRedTextColorCells: MutableSet<Pair<Int, Int>> = gson.fromJson(json, itemType) ?: mutableSetOf()
+
+        return SudokuData(loadedSolvedGrid, loadedSavedGrid, loadedCntAnswer, loadedDifficulty, loadedRedTextColorCells)
     }
 
     data class SudokuData(
         val loadedSolvedGrid: Array<IntArray>,
         val loadedSavedGrid: Array<IntArray>,
         val loadedCntAnswer: Int,
-        val loadedDifficulty: Int
+        val loadedDifficulty: Int,
+        val loadedRedTextColorCells: MutableSet<Pair<Int, Int>>
     )
 }
