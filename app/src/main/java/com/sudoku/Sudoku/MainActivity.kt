@@ -38,6 +38,7 @@ class MainActivity : AppCompatActivity() {
             InitGrid(solvedgrid)
             ShuffleGrid(solvedgrid, 3)
             CreateRiddleGrid(difficulty)
+            savedGrid = riddleGrid
         } else {
             solvedgrid = intent.getSerializableExtra("loadedSolvedGrid") as Array<IntArray>
             riddleGrid = intent.getSerializableExtra("loadedSavedGrid") as Array<IntArray>
