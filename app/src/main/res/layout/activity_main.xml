@@ -62,16 +62,16 @@
                 android:scaleType="fitCenter"
                 android:src="@drawable/eraser_icon" />
 
-<!--            <ImageButton-->
-<!--                android:id="@+id/btnMemo"-->
-<!--                android:layout_width="50dp"-->
-<!--                android:layout_height="50dp"-->
-<!--                android:background="#00FFFFFF"-->
-<!--                android:layout_row="0"-->
-<!--                android:layout_column="4"-->
-<!--                android:layout_columnSpan="0"-->
-<!--                android:src="@drawable/memo_off"-->
-<!--                android:scaleType="fitCenter"/>-->
+            <ImageButton
+                android:id="@+id/btnMemo"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="#00FFFFFF"
+                android:layout_row="0"
+                android:layout_column="4"
+                android:layout_columnSpan="0"
+                android:src="@drawable/memo_off"
+                android:scaleType="fitCenter"/>
 
             <!-- 하단에 있는 숫자 버튼들 -->
             <ImageButton

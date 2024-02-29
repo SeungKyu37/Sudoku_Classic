@@ -58,9 +58,9 @@ class MainActivity : AppCompatActivity() {
         loadRewardedAd()
         updateGrid()
 
-//        setMemoImage()
-//
-//        updateMemoGrid()
+        setMemoImage()
+
+        updateMemoGrid()
 
         val btn_Title: ImageButton = findViewById(R.id.btnTitle)
 
@@ -341,35 +341,35 @@ class MainActivity : AppCompatActivity() {
         initcolor()
     }
 
-//    private fun setMemoImage() {
-//        val btnMemo: ImageButton = findViewById(R.id.btnMemo)
-//
-//        // isMemoOn 값에 따라 이미지 설정
-//        if (isMemoOn) {
-//            btnMemo.setImageResource(R.drawable.memo_on)
-//        } else {
-//            btnMemo.setImageResource(R.drawable.memo_off)
-//        }
-//    }
-//
-//    private fun updateMemoGrid(){
-//
-//        val btnMemo: ImageButton = findViewById(R.id.btnMemo)
-//
-//        btnMemo.setOnClickListener {
-//            // 버튼 클릭 시 상태를 토글하고 이미지 업데이트
-//            isMemoOn = !isMemoOn
-//            setMemoImage()
-//        }
-//
-//        if (isMemoOn) {
-//            for (i in 0 until 9) {
-//                for (j in 0 until 9) {
-//
-//                }
-//            }
-//        }
-//    }
+    private fun setMemoImage() {
+        val btnMemo: ImageButton = findViewById(R.id.btnMemo)
+
+        // isMemoOn 값에 따라 이미지 설정
+        if (isMemoOn) {
+            btnMemo.setImageResource(R.drawable.memo_on)
+        } else {
+            btnMemo.setImageResource(R.drawable.memo_off)
+        }
+    }
+
+    private fun updateMemoGrid(){
+
+        val btnMemo: ImageButton = findViewById(R.id.btnMemo)
+
+        btnMemo.setOnClickListener {
+            // 버튼 클릭 시 상태를 토글하고 이미지 업데이트
+            isMemoOn = !isMemoOn
+            setMemoImage()
+        }
+
+        if (isMemoOn) {
+            for (i in 0 until 9) {
+                for (j in 0 until 9) {
+
+                }
+            }
+        }
+    }
 
     private fun setColor(i: Int,j: Int){
         if(i<3&&j<3){
